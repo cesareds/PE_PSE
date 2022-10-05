@@ -52,9 +52,13 @@ PE *PSE_PE(PSE *pse){
 
     while(no_aux){
         No *desempilhado = desempilhar(pse);
-        printf("desempilhado\n");
-        empilhar(pilha_aux, desempilhado->x);
-        printf("empilhado\n");
+        if(desempilhado) {
+            printf("aaaaaa\n");
+            printf("desempilhado: %i\n", desempilhado->x);
+            empilhar(pilha_aux, desempilhado->x);
+        }
+
+        printf("\nempilhado\n");
         free(desempilhado);
         no_aux = no_aux->prox;
         contador++;
@@ -65,6 +69,7 @@ PE *PSE_PE(PSE *pse){
     pe->vetor = malloc(contador*sizeof (int));
 
     for(int i = 0; i<contador; i++){
+        printf("inserindo na pe %i\n", i);
         inserePE(pe, desempilhar(pilha_aux)->x);
     }
 
@@ -94,7 +99,7 @@ void empilhar(PSE *pilha, int x){
     novo->x=x;
 
     if(pilha->inicial!=NULL){
-        printf("pilha->inicial!=NULL");
+        //printf("pilha->inicial!=NULL\t");
         No *aux = pilha->inicial;
         while (aux->prox){
             aux = aux->prox;
@@ -103,23 +108,20 @@ void empilhar(PSE *pilha, int x){
         aux->prox=novo;
 
     } else{
-        printf("pilha->inicial==NULL");
+        //printf("pilha->inicial==NULL");
         pilha->inicial = novo;
     }
 }
 No* desempilhar(PSE *pse){
 
     if(pse->inicial!=NULL){
-        printf("\npse->inicial\n");
         No *atual = pse->inicial;
         if(atual->prox){
-            printf("atual->prox\n");
-            while (atual->prox->prox){
+            while (atual->prox){
                 atual = atual->prox;
-                printf("%i\n", atual->x);
             }
-            No *aux2 = atual->prox->prox;
-            atual->prox->prox = NULL;
+            No *aux2 = atual;
+            atual->prox = NULL;
             return aux2;
         }else{
             pse->inicial = NULL;
@@ -130,4 +132,5 @@ No* desempilhar(PSE *pse){
         return NULL;
     }
 }
+
 

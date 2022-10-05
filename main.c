@@ -15,8 +15,8 @@ int main() {
     empilhar(pse, 4);
 
     PE *pe = PSE_PE(pse);
-    for(int i = 0; i<sizeof(pe->vetor); i++){
-        printf("\n%i\n", pe->vetor[i]);
+    for(int i = 0; i<N; i++){
+        printf("\nFOR DA MAIN %i\n", pe->vetor[i]);
     }
     return 0;
 }
